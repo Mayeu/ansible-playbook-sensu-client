@@ -1,0 +1,50 @@
+---
+- name: add the key of the sensu official repo
+  apt_key: url=https://repos.sensuapp.org/apt/pubkey.gpg state=present
+
+- name: add the sensu official repo
+  copy:
+    src=files/sensu-server.list
+    dest=/etc/apt/sources.list.d/
+    backup=yes
+  register: aptrepo
+
+- name: refresh apt cache
+  apt: update_cache=yes
+  when: aptrepo.changed
+
+- name: install sensu-server
+  apt: name=sensu state=latest
+
+- name: enable sensu-client to survive reboot
+  service: name=sensu-client enabled=yes
+
+- name: Create ssl dir
+  file:
+    path=/etc/sensu/ssl
+    owner=sensu
+    group=sensu
+    mode=0750
+    state=directory
+
+- name: Copy ssl files
+  copy:
+    src=files/sensu_{{ item }}.pem
+    dest=/etc/sensu/ssl/{{ item }}.pem
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  with_items:
+    - client_cert
+    - client_key
+
+- name: copie config.json
+  template:
+    src=templates/sensu.client.config.json.j2
+    dest=/etc/sensu/conf.d/client.json
+    owner=sensu
+    group=sensu
+    mode=0640
+    backup=yes
+  notify: restart sensu client daemons

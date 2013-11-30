@@ -1,0 +1,9 @@
+---
+sensu_client_hostname          : "localhost"
+sensu_client_address           : "127.0.0.1"
+sensu_client_subscription_names:
+  - test
+
+sensu_server_rabbitmq_hostname : "localhost"
+sensu_server_rabbitmq_user     : "sensu"
+sensu_server_rabbitmq_password : "placeholder"
