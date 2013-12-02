@@ -38,14 +38,14 @@ used to encrypt the communication between your different host:
      |- sensu_client_cert.pem
      |- sensu_client_key.pem
 
-Please note that the `files` folder of this repository contains dummy
-certificate. You should **not** use them. Your certificate will get precedence
-over the ones of this role if put in your root `files` folder.
-
 ##Test
 
-There is some really basic tests with the playbook. It just try to install
-rabbitmq in a vagrant VM. Just run:
+To test it you will need this [RabbitMQ
+role](https://github.com/Mayeu/ansible-playbook-rabbitmq). And you need to put
+the associated certificates in your `files` folder (See the README).
+
+There is some really basic tests with the playbook. It just try to sensu-client
+in a vagrant VM. Just run:
 
     $ vagrant up
 
