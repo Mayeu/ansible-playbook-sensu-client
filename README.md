@@ -1,6 +1,6 @@
 #Sensu client playbook
 
-Playbook to install and configure a sensu-server. This is a work in progress,
+Playbook to install and configure a Sensu client. This is a work in progress,
 it will come with various configuration tweaking later on :)
 
 ##Supported system
@@ -10,7 +10,7 @@ support other OS.
 
 ##Installation
 
-Just clone (or submodule) this repository under the name `sensu-server` in your
+Just clone (or submodule) this repository under the name `sensu-client` in your
 `roles` directory. This file, `test.yml` and `Vagrantfile` will be ignored by
 ansible anyway.
 
