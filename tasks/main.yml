@@ -4,7 +4,7 @@
 
 - name: add the sensu official repo
   copy:
-    src=files/sensu-server.list
+    src=sensu-server.list
     dest=/etc/apt/sources.list.d/
     backup=yes
   register: aptrepo
@@ -41,7 +41,7 @@
 
 - name: copie config.json
   template:
-    src=templates/sensu.client.config.json.j2
+    src=sensu.client.config.json.j2
     dest=/etc/sensu/conf.d/client.json
     owner=sensu
     group=sensu
