@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# chkconfig: 345 90 90
+# description: Sensu monitoring framework client
+
+### BEGIN INIT INFO
+# Provides:       sensu-client
+# Required-Start: $remote_fs $network rabbitmq-server
+# Required-Stop:  $remote_fs $network rabbitmq-server
+# Default-Start:  2 3 4 5
+# Default-Stop:   0 1 6
+# Description:    Sensu monitoring framework client
+### END INIT INFO
+
+/etc/init.d/sensu-service client $1
+
+exit $?
