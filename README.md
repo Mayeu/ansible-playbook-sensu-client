@@ -32,11 +32,16 @@ You may need to redefine the following variables:
 ####Files
 
 You have to put the needed certificates in your `files/` folder, those will be
-used to encrypt the communication between your different host:
+used to encrypt the communication between your different host. All the checks
+script should be in a `files/sensu/plugins/` folder; they will all be copied in
+the `/etc/sensu/plugins/` folder
 
     files/
      |- sensu_client_cert.pem
      |- sensu_client_key.pem
+     |- sensu/
+     |--- plugins/
+     |----- <all your .rb check script>
 
 ##Test
 

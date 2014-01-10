@@ -60,3 +60,12 @@
     mode=0640
     backup=yes
   notify: restart sensu client daemons
+
+- name: copy the checks files
+  copy:
+    src=files/sensu/plugins/
+    dest=/etc/sensu/plugins/
+    owner=sensu
+    group=sensu
+    mode=0750
+  notify: restart sensu client daemons
