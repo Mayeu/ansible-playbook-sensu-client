@@ -1,8 +1,8 @@
 ---
-- name: add the key of the sensu official repo
+- name: add the official Sensu repository's key
   apt_key: url=https://repos.sensuapp.org/apt/pubkey.gpg state=present
 
-- name: add the sensu official repo
+- name: add the official Sensu repository
   copy:
     src=sensu-server.list
     dest=/etc/apt/sources.list.d/
@@ -13,25 +13,13 @@
   apt: update_cache=yes
   when: aptrepo.changed
 
-- name: install sensu-server
-  apt: name=sensu state=latest
-
-- name: copy the patched init script
-  copy:
-    src=sensu-client
-    dest=/etc/init.d/
-    owner=root
-    group=root
-    mode=755
-    backup=yes
-
-- name: ensure the patched init script are used
-  command: /usr/sbin/update-rc.d sensu-client remove && /usr/sbin/update-rc.d sensu-client defaults
+- name: install sensu
+  apt: name=sensu state=present
 
 - name: enable sensu-client to survive reboot
   service: name=sensu-client enabled=yes
 
-- name: Create ssl dir
+- name: create the SSL directory
   file:
     path=/etc/sensu/ssl
     owner=sensu
@@ -39,7 +27,7 @@
     mode=0750
     state=directory
 
-- name: Copy ssl files
+- name: copy the SSL certificates
   copy:
     src=files/sensu_{{ item }}.pem
     dest=/etc/sensu/ssl/{{ item }}.pem
@@ -51,7 +39,7 @@
     - client_cert
     - client_key
 
-- name: copie config.json
+- name: generate /etc/sensu/config.json
   template:
     src=sensu.client.config.json.j2
     dest=/etc/sensu/conf.d/client.json
@@ -61,7 +49,7 @@
     backup=yes
   notify: restart sensu client daemons
 
-- name: copy the checks files
+- name: copy all the checks files
   copy:
     src=files/sensu/plugins/
     dest=/etc/sensu/plugins/
