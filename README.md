@@ -1,7 +1,7 @@
 #Sensu client playbook
 
 Playbook to install and configure a Sensu client. This is a work in progress,
-it will come with various configuration tweaking later on :)
+it will come with various configuration tweaking later on.
 
 ##Supported system
 
