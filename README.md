@@ -1,3 +1,7 @@
+#WARNING
+
+###This playbook is deprecated and has been merge in [ansible-playbook-sensu](https://github.com/Mayeu/ansible-playbook-sensu). It will not be updated anymore.
+
 #Sensu client playbook
 
 Playbook to install and configure a Sensu client. This is a work in progress,
